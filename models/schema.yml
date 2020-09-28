@@ -1,5 +1,10 @@
 version: 2
 
+sources:
+  - name: jaffle_shop
+    database: raw
+    tables:
+      - name: orders
 models:
   - name: customers
     description: One record per customer
@@ -33,3 +38,15 @@ models:
         tests:
           - accepted_values:
               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+
+  - name: stg_payments
+    description: This model pulls payment information
+    columns:
+      - name: order_id
+        tests:
+        - not_null 
+      - name: status
+        tests:
+          - acccepted_values:
+              values: ['success', 'fail']          
+            
