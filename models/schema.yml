@@ -5,6 +5,11 @@ sources:
     database: raw
     tables:
       - name: orders
+  - name: stripe
+    database: raw
+    tables:
+      - name: payment   
+
 models:
   - name: customers
     description: One record per customer
@@ -47,6 +52,6 @@ models:
         - not_null 
       - name: status
         tests:
-          - acccepted_values:
+          - accepted_values:
               values: ['success', 'fail']          
             
