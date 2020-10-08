@@ -11,9 +11,9 @@ with temp_table as (
     select s.*,concat(s.id,s.seq_no) as u_key
     from SCD1_SRC s
     -- Adding condition to allow SCD 1 load the latest records for a range of dates
-    join (select id,max(commit_date) as max_date from SCD1_SRC where commit_date between '2020-02-03' and '2020-02-03' group by id ) as t
+    join (select id,max(commit_date) as max_date from SCD1_SRC where commit_date between date('{{var('start_date')}}') and date('{{var('end_date')}}') group by id ) as t
     on t.id= s.id and s.commit_date = t.max_date
-    where commit_date between '2020-02-01' and '2020-02-03'
+    where commit_date between date('{{var('start_date')}}') and date('{{var('end_date')}}')
 )
  
  select * from temp_table
@@ -22,3 +22,7 @@ with temp_table as (
 
  where id in  (select id from temp_table)
  {% endif %}
+
+/* Sample query to run :
+ dbt run -m scd1_tgt --vars '{start_date: 2020-01-01, end_date: 2020-02-03}'
+ */
