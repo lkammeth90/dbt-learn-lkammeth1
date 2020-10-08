@@ -36,3 +36,15 @@ models:
     +materialized: table
     example:
         +materialized: view
+seeds:
+    temp_scd1_src:
+      +column_types:
+        seq_no: int
+        id: int
+        name: varchar
+        color: varchar
+        commit_date: date
+        load_date: timestamp
+vars:
+  start_time: '2020-01-01'      
+

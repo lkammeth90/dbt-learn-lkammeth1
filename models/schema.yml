@@ -4,11 +4,17 @@ sources:
   - name: jaffle_shop
     database: raw
     tables:
-      - name: orders
+      - name: orders    
   - name: stripe
     database: raw
     tables:
       - name: payment   
+  - name: ticket_tailor
+    database: raw
+    tables:
+      - name: orders
+      - name: events
+      - name: issued_tickets      
 
 models:
   - name: customers
@@ -42,7 +48,9 @@ models:
       - name: status
         tests:
           - accepted_values:
-              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned1']
+              severity: warn
+              tags: 'stg_orders'
 
   - name: stg_payments
     description: This model pulls payment information
@@ -53,5 +61,6 @@ models:
       - name: status
         tests:
           - accepted_values:
-              values: ['success', 'fail']          
-            
+              values: ['SUCCESS', 'FAIL']     
+
+ 
