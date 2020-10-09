@@ -58,9 +58,16 @@ models:
       - name: order_id
         tests:
         - not_null 
-      - name: status
-        tests:
-          - accepted_values:
-              values: ['SUCCESS', 'FAIL']     
+
+models:
+  - name: 'scd1_src'
+    columns:
+     - name: commit_date
+       tests:
+        - validate_src_tgt_row_count:
+            compare_model: ref('scd1_tgt')
+            model_col: 'commit_date' 
+            compare_model_col: 'commit_date'
+            severity: warn              
 
  
